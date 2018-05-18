@@ -146,9 +146,9 @@ PUBCOMP数据包也有类似的条目，它具有相同的原因码集合，并�
 
 #### Links
 
-[OASIS Message Queuing Telemetry Transport (MQTT) TC]([https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=mqtt](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=mqtt))
+[OASIS Message Queuing Telemetry Transport (MQTT) TC](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=mqtt)
 
-[Latest specification version]([http://docs.oasis-open.org/mqtt/mqtt/v5.0/](http://docs.oasis-open.org/mqtt/mqtt/v5.0/))
+[Latest specification version](http://docs.oasis-open.org/mqtt/mqtt/v5.0/)
 
 [MQTT.fx](http://www.mqttfx.org/)
 

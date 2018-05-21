@@ -112,17 +112,17 @@ Tips: **默认为最小安装，如果要带有GUI之类的需要自己选择GUI
 
 10. 点击开始安装
 
-    ![users](./images/pic_18_4.png)
+   ![users](./images/pic_18_4.png)
 
 11. 设置ROOT密码
 
-    ![root](./images/pic_19_4.png)
+   ![root](./images/pic_19_4.png)
 
 12. 耐心等待安装完成
 
-13.  完成后点击重启
+13. 完成后点击重启
 
-    ![reboot](./images/pic_20_4.png)
+   ![reboot](./images/pic_20_4.png)
 
 
 
@@ -134,3 +134,6 @@ Tips: **默认为最小安装，如果要带有GUI之类的需要自己选择GUI
 
 如果无法联网，更改为桥接模式，service network restart。或者关闭虚拟机，重新生成mac地址。一般情况下nat模式即可
 
+2. ifconfig查看Ip 地址后，即可通过ssh访问
+
+   ![](./images/pic_22_4.png)

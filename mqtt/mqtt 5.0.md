@@ -24,7 +24,7 @@
 
 #### 3、v5.0 亮点
 
-**3.1 用户属性** （**User Properties**）
+**3.1 用户属性（User Properties）**
 
 ​        用户属性（UTF-8编码的字符串）可以是大多数MQTT数据包的一部分：PUBLISH和CONNECT，以及包含原因码的所有数据包。
 
@@ -36,7 +36,7 @@
 
 
 
-**3.2 有效载荷格式指示符和内容类型**（**Payload Format Indicator & Content Type **）
+**3.2 有效载荷格式指示符和内容类型（Payload Format Indicator & Content Type ）**
 
 ​	发送PUBLISH消息时可以使用另一个标识符/值，这是有效载荷格式指标。如果存在并设置为1，**这表明PUBLISH载荷是UTF-8编码数据。 ** 如果设置为0，**或者指示器不存在，那么有效负载是未指定的字节格式**，与MQTT v3.1.1完全相同。
 
@@ -48,7 +48,7 @@
 
 
 
-**3.3 共享订阅** （**Shared Subscriptions**）
+**3.3 共享订阅（Shared Subscriptions）** 
 
 ​	借助共享订阅，客户端负载均衡现已包含在MQTT中。单个Topic的消息负载分布在所有订户之间（HiveMQ已经为MQTT 3.1和MQTT 3.1.1提供了支持）。
 
@@ -56,7 +56,7 @@
 
 共享订阅使用特殊风格的Topic过滤器进行标识。
 
-这个过滤器的格式是：**$share/{ShareName}/{filter} **
+这个过滤器的格式是：**$share/{ShareName}/{filter}**
 
 
 

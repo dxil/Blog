@@ -24,7 +24,7 @@
 
 #### 3、v5.0 亮点
 
-**3.1 用户属性** （**User Properties**）
+**3.1 用户属性（User Properties）**
 
 ​        用户属性（UTF-8编码的字符串）可以是大多数MQTT数据包的一部分：PUBLISH和CONNECT，以及包含原因码的所有数据包。
 
@@ -36,9 +36,9 @@
 
 
 
-**3.2 有效载荷格式指示符和内容类型**（**Payload Format Indicator & Content Type **）
+**3.2 有效载荷格式指示符和内容类型（Payload Format Indicator & Content Type ）**
 
-​	发送PUBLISH消息时可以使用另一个标识符/值，这是有效载荷格式指标。如果存在并设置为1，**这表明PUBLISH载荷是UTF-8编码数据。 ** 如果设置为0，**或者指示器不存在，那么有效负载是未指定的字节格式**，与MQTT v3.1.1完全相同。
+​	发送PUBLISH消息时可以使用另一个标识符/值，这是有效载荷格式指标。如果存在并设置为1，**这表明PUBLISH载荷是UTF-8编码数据。如果设置为0，或者指示器不存在，那么有效负载是未指定的字节格式**，与MQTT v3.1.1完全相同。
 
 1. PUBLISH消息的可选部分 
 2. 如果有效载荷格式无效，则可发送ACK消息的原因代码 
@@ -48,7 +48,7 @@
 
 
 
-**3.3 共享订阅** （**Shared Subscriptions**）
+**3.3 共享订阅（Shared Subscriptions）** 
 
 ​	借助共享订阅，客户端负载均衡现已包含在MQTT中。单个Topic的消息负载分布在所有订户之间（HiveMQ已经为MQTT 3.1和MQTT 3.1.1提供了支持）。
 
@@ -56,7 +56,7 @@
 
 共享订阅使用特殊风格的Topic过滤器进行标识。
 
-这个过滤器的格式是：**$share/{ShareName}/{filter} **
+这个过滤器的格式是：**$share/{ShareName}/{filter}**
 
 
 
@@ -86,8 +86,8 @@
 
 ​	“**Clean Session**”现在分为“**Clean Start**”。如果Clean Start设置为1，则表明会话应该在不使用现有会话的情况下启动（否则将保留会话信息），并且会话过期时间间隔表示断开后保留会话的时间。
 
-	1. **Session Expiry（会话到期）**是CONNECT消息（3.1.2.11.2会话到期间隔）和DISCONNECT控制数据包（3.14.2.2.2会话到期间隔）的可选部分。如果在DISCONNECT消息中会话过期间隔不存在，则使用CONNECT包中的会话过期间隔。它以秒为单位定义会话到期时间间隔。如果在客户端断开连接后设置Broker，那么会立即在给定时间间隔后终止会话（不知道是不是这么理解，原文： If set the Broker expires the session after the given interval as soon as the client disconnects）。在将Clean Session设置为1的MQTT v3.1.1中，将Clean Start设置为1并将Session Expiry Interval设置为0是等效的。
-	2. **Message expiry（消息到期）**是PUBLISH控制数据包的可选部分（3.3.2.3.3发布到期间隔）。发布到期时间间隔适用于在线和排队消息，并且发布周期是以秒为单位的。
+1. **Session Expiry（会话到期）** 是CONNECT消息（3.1.2.11.2会话到期间隔）和DISCONNECT控制数据包（3.14.2.2.2会话到期间隔）的可选部分。如果在DISCONNECT消息中会话过期间隔不存在，则使用CONNECT包中的会话过期间隔。它以秒为单位定义会话到期时间间隔。如果在客户端断开连接后设置Broker，那么会立即在给定时间间隔后终止会话（不知道是不是这么理解，原文： If set the Broker expires the session after the given interval as soon as the client disconnects）。在将Clean Session设置为1的MQTT v3.1.1中，将Clean Start设置为1并将Session Expiry Interval设置为0是等效的。
+2. **Message expiry（消息到期）** 是PUBLISH控制数据包的可选部分（3.3.2.3.3发布到期间隔）。发布到期时间间隔适用于在线和排队消息，并且发布周期是以秒为单位的。
 
 在这个条件下解决的另一个问题是简化状态管理。 这至少有两个主要优点。
 

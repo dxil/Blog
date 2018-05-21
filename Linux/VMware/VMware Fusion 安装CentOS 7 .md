@@ -66,3 +66,71 @@
 
 ## 四、安装CentOS 7 系统
 
+1. 下载完成后，即可添加设备
+
+   ![添加CentOS镜像](./images/pic_10.png)
+
+2. 回到设置界面，选择 “启动磁盘”
+
+   ![启动磁盘](./images/pic_11.png)
+
+3. 选择DVD后重新启动
+
+   ![选择磁盘](./images/pic_12.png)
+
+4. 我这里选择的是第二种
+
+   ![选择种类](./images/pic_13_4.png)
+
+5. 选择语言（英语渣，所以选择了中文。。）
+
+![language](./images/pic_14_4.png)
+
+
+
+6. 继续 (忘截图了，撸了一张英文图。。。)
+
+![summary](./images/pic_14_1_4.png) 
+
+7. 点击SOFTWARE SELECTION 进入环境选择
+
+![选择安装的环境](./images/pic_15_4.png)
+
+Tips: **默认为最小安装，如果要带有GUI之类的需要自己选择GUI的服务器选项，虽然网上有说最小安装后之后的桌面可以再装，但是会有意料之外的错误，比如Yum没有安装等，由于我只需要使用其中的命令行就OK，所以我选择了虚拟化主机**
+
+
+
+8. 点击完成后进入安装目标位置，直接点击完成
+
+![location](./images/pic_16_4.png)
+
+
+
+9. 点击网络，打开，然后点击完成
+
+   ![network](./images/pic_17_4.png)
+
+10. 点击开始安装
+
+    ![users](./images/pic_18_4.png)
+
+11. 设置ROOT密码
+
+    ![root](./images/pic_19_4.png)
+
+12. 耐心等待安装完成
+
+13.  完成后点击重启
+
+    ![reboot](./images/pic_20_4.png)
+
+
+
+## 五、一些问题
+
+1. 重启后，Ping一下Baidu.com是否联网
+
+   ![](./images/pic_21_4.png)
+
+如果无法联网，更改为桥接模式，service network restart。或者关闭虚拟机，重新生成mac地址。一般情况下nat模式即可
+

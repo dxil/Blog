@@ -86,8 +86,8 @@
 
 ​	“**Clean Session**”现在分为“**Clean Start**”。如果Clean Start设置为1，则表明会话应该在不使用现有会话的情况下启动（否则将保留会话信息），并且会话过期时间间隔表示断开后保留会话的时间。
 
-1. **Session Expiry（会话到期）**是CONNECT消息（3.1.2.11.2会话到期间隔）和DISCONNECT控制数据包（3.14.2.2.2会话到期间隔）的可选部分。如果在DISCONNECT消息中会话过期间隔不存在，则使用CONNECT包中的会话过期间隔。它以秒为单位定义会话到期时间间隔。如果在客户端断开连接后设置Broker，那么会立即在给定时间间隔后终止会话（不知道是不是这么理解，原文： If set the Broker expires the session after the given interval as soon as the client disconnects）。在将Clean Session设置为1的MQTT v3.1.1中，将Clean Start设置为1并将Session Expiry Interval设置为0是等效的。
-2. **Message expiry（消息到期）**是PUBLISH控制数据包的可选部分（3.3.2.3.3发布到期间隔）。发布到期时间间隔适用于在线和排队消息，并且发布周期是以秒为单位的。
+1. **Session Expiry（会话到期）** 是CONNECT消息（3.1.2.11.2会话到期间隔）和DISCONNECT控制数据包（3.14.2.2.2会话到期间隔）的可选部分。如果在DISCONNECT消息中会话过期间隔不存在，则使用CONNECT包中的会话过期间隔。它以秒为单位定义会话到期时间间隔。如果在客户端断开连接后设置Broker，那么会立即在给定时间间隔后终止会话（不知道是不是这么理解，原文： If set the Broker expires the session after the given interval as soon as the client disconnects）。在将Clean Session设置为1的MQTT v3.1.1中，将Clean Start设置为1并将Session Expiry Interval设置为0是等效的。
+2. **Message expiry（消息到期）** 是PUBLISH控制数据包的可选部分（3.3.2.3.3发布到期间隔）。发布到期时间间隔适用于在线和排队消息，并且发布周期是以秒为单位的。
 
 在这个条件下解决的另一个问题是简化状态管理。 这至少有两个主要优点。
 

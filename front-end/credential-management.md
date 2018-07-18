@@ -2,13 +2,13 @@
 
 #### 1、现代浏览器密码管理问题
 
-登录网站的流程一直处于非常麻烦的状态，用户代理一直在尝试改善登录体验，比如现代浏览器通常能够存储并且自动输入账号密码。
+登录网站的流程一直处于非常麻烦的状态，浏览器用户代理一直在尝试改善登录体验，比如现代浏览器通常能够存储并且自动输入账号密码。
 
 例如在登录某个站点时，会提示自动填充账号
 
 ![](./images/autocomplete.png)
 
-该`autocomplete`属性提供了一种声明机制，通过该机制，网站可以与用户代理一起工作，通过将特定字段标记为“用户名”或“密码”来提高后者检测和填写登录表单的能力，尽管浏览器尝试用次优的方法来猜测哪些表单字段应该被填充/存储，但这通常会因为密码更改后，密码管理器无法更新从而导致不一致，甚至有时候是错误的填充行为，具有不常见登录机制的站点（例如，通过`XMLHttpRequest` [[XMLHTTPREQUEST\]](https://w3c.github.io/webappsec-credential-management/#biblio-xmlhttprequest)提交而不是form表单形式的登录）也难以可靠地检测。
+`autocomplete`属性提供了一种声明机制，通过该机制，网站可以与用户代理一起工作，通过将特定字段标记为“用户名”或“密码”来提高后者检测和填写登录表单的能力，尽管浏览器尝试用次优的方法来猜测哪些表单字段应该被填充/存储，但这通常会因为密码更改后，密码管理器无法更新从而导致不一致，甚至有时候是错误的填充行为，具有不常见登录机制的站点（例如，通过`XMLHttpRequest` [[XMLHTTPREQUEST\]](https://w3c.github.io/webappsec-credential-management/#biblio-xmlhttprequest)提交而不是form表单形式的登录）也难以可靠地检测。
 
 另一方面用户希望使用联合身份提供者进行身份验证的情况越来越常见。例如在一些站点通过第三方如微信或微博登录，然而上面这种方式，浏览器无法自动填充联合登录账号的表单。每次都需要输入第三方的账号密码去验证使得流程麻烦。
 
@@ -71,4 +71,112 @@ credential-management 旨在简化更改密码的过程，以便客户端上本�
 navigator.credentials.store(cred) //储存凭证
 ```
 
-#####3.2 
+##### 3.2、navigator.credentials.get() 
+
+```javascript
+navigator.credentials.get({
+      password: true, // `true` to obtain password credentials
+      federated: {
+        providers: [  // Specify an array of IdP strings
+          'https://www.test.com',
+          'https://accounts.google.com'
+        ]
+      },
+      mediation: mediation
+    }).then(cred => {
+      // If credential object is available
+      if (!cred) return showError({code: -1, msg: 'did not have Credentials'})
+
+      switch (cred.type) {
+        case 'password':
+          // If `password` prop doesn't exist, this is Chrome < 60
+          if (cred.password === undefined) {
+            return showError({code: -1002, msg: 'not support at Chrome version < 60'})
+
+          // Otherwise, this is Chrome => 60
+          } else {
+            // post cred data
+            // return or post data to server
+            return Promise.resolve({type: cred.type, cred: cred})
+          }
+        case 'federated':
+          return Promise.resolve({type: cred.type, cred: cred})
+        default:
+          return showError({code: -1001, msg: 'not support this way sign'})
+      }
+    })
+```
+
+在运行以上代码时，浏览器会检索密码管理器，获取当前页面的账号密码以及第三方账号id，然后呼出上图供用户选择账户。
+
+你可以检查cred中的type来区分是PasswordCredential还是FederatedCredential类型，以便走入普通登录逻辑或者三方登录逻辑。
+
+值得注意的是，在chorme < 60的版本中password不会明文出现，但是由于现在很多网站需要对密码做hash或是密码不一定从表单发出，可能在Json对象中传入，于是在 >60的版本中password将会给到开发人员
+
+另外在chorme 60版本以上
+
+[`requireUserMediation()`改名为`preventSilentAccess()`](https://developers.google.com/web/updates/2017/06/credential-management-updates#preventsilentaccess)
+
+[`navigator.credentials.get()`现在接受枚举`mediation`](https://developers.google.com/web/updates/2017/06/credential-management-updates#mediation) 而不是布尔标志`unmediated`。
+
+[新方法`navigator.credentials.create()`](https://developers.google.com/web/updates/2017/06/credential-management-updates#credentialscreate) 异步创建凭证对象。
+
+##### 3.3、 navigator.credentials.create()
+
+在之前创建密码的方式为
+
+```javascript
+let cred = new PasswordCredential({id: data.id, password: '123'});
+```
+
+或者
+
+```javascript
+let cred = new FederatedCredential({
+  id:       data.id,
+  name:     data.name,
+  iconURL:  data.iconURL || '',
+  provider: data.provider
+});
+```
+
+使用 `navigator.credentials.create()`则接收异步创建密码类型
+
+参考如下代码：
+
+```javascript
+let c = await navigator.credentials.create({
+  password: {
+    id: id,
+    password: password
+  }
+});
+let d = await navigator.credentials.create({
+  federated: {
+    id:       data.id,
+    name:     data.name,
+    iconURL:  data.iconURL || '',
+    provider: data.provider
+  }
+});
+```
+
+
+
+##### 3.4、  navigator.credentials.preventSilentAccess()
+
+一般情况下 在` navigator.credentials.get()`中 的`mediation`设置为 `mediation: 'silent'// mediation 有两个值 silent optional`，用户将会静默登录，但不是每个用户都需要自动登录功能，那么调用 `navigator.credentials.preventSilentAccess()`将会取消静默登录
+
+#### 4、子域共享凭据
+
+规范的更高版本允许从不同的子域检索凭证。例如，存储在login.example.com中的密码可用于登录www.example.com。要利用这一点，必须通过调用`CredentialsContainer.store()`显式存储密码。这有时被称为公共后缀列表（PSL）匹配；但是规范仅建议使用PSL来确定凭证的有效范围。它(子域共享凭据)不需要它。因此浏览器的实现可能会有所不同。
+
+参考：
+
+>[w3c credential-management规范](https://w3c.github.io/webappsec-credential-management/)
+>
+>[MDN credential-management API](https://developer.mozilla.org/en-US/docs/Web/API/Credential_Management_API)
+>
+>[wiki描述](https://en.wikipedia.org/wiki/Credential_Management)
+>
+>[Streamlining the Sign-in Flow Using Credential Management API - Eiji Kitamura](https://developers.google.com/web/updates/2016/04/credential-management-api)

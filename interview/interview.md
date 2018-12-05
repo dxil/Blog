@@ -63,7 +63,7 @@
 
 5. this指向问题
 
-6. Bind实现
+6. Bind实现，Call/Apply的实现
 
 7. Event loop
 
@@ -76,3 +76,9 @@
 10. Async/Await
 
 11. Generate
+
+12. [2018大厂高级前端面试题汇总 - 方伟景的文章 - 知乎](https://zhuanlan.zhihu.com/p/48827292)
+
+13. [tcp三次握手](https://github.com/jawil/blog/issues/14)
+
+14. [输入Url的全过程](https://www.zhihu.com/question/34873227/answer/518086565)

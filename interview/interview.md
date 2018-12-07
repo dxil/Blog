@@ -63,7 +63,7 @@
 
 5. this指向问题
 
-6. Bind实现，Call/Apply的实现
+6. [Bind实现](./bind.md)，Call/Apply的实现
 
 7. Event loop
 

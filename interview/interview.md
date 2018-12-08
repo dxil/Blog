@@ -63,11 +63,13 @@
 
 5. this指向问题
 
-6. [Bind实现](./bind.md)，Call/Apply的实现
+6. [Bind实现](./bind.md)，Call/Apply的实现， new的实现
 
 7. Event loop
 
 8. 闭包 
+
+   在外部函数中能访问内部函数的作用域
 
    [闭包面试题](https://juejin.im/post/58cf180b0ce4630057d6727c)
 
@@ -84,3 +86,17 @@
 14. [输入Url的全过程](https://www.zhihu.com/question/34873227/answer/518086565)
 
 15. 防抖节流实现
+
+16. Object.create的简单polyfill
+
+   ```javascript
+   if (!Object.create) {
+     Object.create = function (o) {
+       var F = function () {}
+       F.prototype = o
+       return new F()
+     }
+   }
+   ```
+
+17. 函数柯里化 

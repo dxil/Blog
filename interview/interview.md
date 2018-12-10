@@ -14,14 +14,19 @@
 
     if([1]==[1]){console.log(4)}
 
+   /*答案 1 3 
+
+   1中对象和布尔值进行比较会将布尔值进行ToNumber操作，false为0, 然后将数组Number，所以[]为 0  0显然  与0相等 输出1
+
+   2中同样false为0，{}Number取值后为NaN，显然不相等
+
+   3中[]为Boolean([]) true
+
+   4中 [1]与[1]比较的是引用地址，显然不是同一引入 返回false
+   */
    ```
 
    ​
-   答案 1 3 
-   1中对象和布尔值进行比较会将布尔值进行ToNumber操作，false为0, 然后将数组Number，所以[]为 0  0显然与0相等 输出1
-   2中同样false为0，{}Number取值后为NaN，显然不相等
-   3中[]为Boolean([]) true
-   4中 [1]与[1]比较的是引用地址，显然不是同一引入 返回false
 
 4. 输出以下代码的结果
 
@@ -89,7 +94,7 @@
 
 16. Object.create的简单polyfill
 
-   ```javascript
+```javascript
    if (!Object.create) {
      Object.create = function (o) {
        var F = function () {}
@@ -97,6 +102,6 @@
        return new F()
      }
    }
-   ```
+```
 
-17. 函数柯里化 
+177. 函数柯里化

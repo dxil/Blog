@@ -93,6 +93,25 @@ function longestStr (str) {
   return longest.length
 }
 
+
 ```
 
 经过测试 第一种方法耗时800ms 第二种仅耗时100ms
+
+```javascript
+var longestStr = function(s) {
+  let substr = '', maxLength = 0;
+  // find the next substring that longeer than previous to replace previous substring
+  for (var i = 0; i < s.length; i++) {
+      let findIndex = substr.indexOf(s[i]);
+      if (~findIndex) {
+          substr = substr.substring(findIndex + 1);
+      }
+      substr += s[i];
+      if (substr.length > maxLength) {
+          maxLength = substr.length;
+      }
+  }
+  return maxLength;
+};
+```

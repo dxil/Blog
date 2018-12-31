@@ -19,3 +19,6 @@
   - [Mysql安装的问题](https://github.com/dxil/Blog/blob/master/problem/mysql-install-problem.md)
   - [pm2-killtimeout](https://github.com/dxil/Blog/blob/master/problem/pm2-killtimeout.md)
   - [weex](https://github.com/dxil/Blog/blob/master/problem/weex.md)
+  
+- Summary
+  -[2018总结](https://github.com/dxil/Blog/blob/master/summary/2018%20%E6%80%BB%E7%BB%93.md)

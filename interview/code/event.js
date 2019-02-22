@@ -24,7 +24,12 @@ class _Event {
     if (!this.fnObj[name]) return
 
     this.fnObj[name].forEach(fn => {
-      fn.apply(null, args)
+      try {
+        fn.apply(null, args)
+      }catch (e) {
+        
+      }
+      
     })
   }
   off (name) {

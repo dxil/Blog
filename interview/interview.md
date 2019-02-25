@@ -89,10 +89,10 @@
 ```markdown
    1. 将URL中所使用的协议信息等补全，如：HTTP协议
    2. 浏览器会校验Url的合法性
-   3. Tcp/ip 不认识域名，所以要通过域名找到对应的ip地址
+   3. Tcp/ip internate这条高速公路 不认识域名，所以要通过域名找到对应的ip地址
       1. 找本地的DNS cache 
       2. 没有的话，找本机的host 文件
-      3. 通过Tcp/ip（这里要经过链路层，通过ARP协议网关MAC地址进行internet通信）使用UDP（开销小）协议去 dns服务器 如谷歌的8.8.8.8 找dns服务器，如果dns服务器上也没有
+      3. 通过Tcp/ip（这里要经过链路层，通过ARP协议网关MAC地址进行internet通信）使用UDP（开销小）协议去 dns服务器 如谷歌的8.8.8.8 找dns服务器，如果dns服务器上也没有 
       4. 找'.'根服务器，全球共13台根服务器（UDP保证保证正常工作的最大包长是512字节，13台命名为A~M包括名字和地址），最后'.'会去问他的儿子.com服务器
       5. 最终肯定能返回ip地址
    4. 找到以后通过TCP/IP传输自己请求，如果是采用的TCP协议，则需要进行三次握手
@@ -123,7 +123,7 @@
 
    
 
-14444. [防抖节流实现](https://juejin.im/post/5a35ed25f265da431d3cc1b1)
+14. [防抖节流实现](https://juejin.im/post/5a35ed25f265da431d3cc1b1)
 
 ```javascript
    function debounce (fn, limit) {
@@ -163,7 +163,7 @@
       }, 500);
 ```
 
-15555. Object.create的简单polyfill
+15. Object.create的简单polyfill
 
               ```javascript
               if (!Object.create) {
@@ -173,196 +173,225 @@
                   return new F()
                 }
               }
-              ```
+              ```  
 
+16. 函数柯里化
 
-         ​     
+17. 实现event的 on emit off事件: [event](./code/event.js)
 
-15556. 函数柯里化
+18. 实现中间件原理
 
-15557. 实现event的 on emit off事件: [event](./code/event.js)
+19. 跨域及使用场景
 
-15558. 实现中间件原理
-
-15559. 跨域及使用场景
-
-         ```javascript
-          // Server Proxy 调用本后端服务的请求进行转发
-          // cors 后端设置Access-Control-Allow-Origin
-          使用简单方便，更为安全
-          支持 POST 请求方式
-          CORS 是一种新型的跨域问题的解决方案，存在兼容问题，仅支持 IE 10 以上
-         
-          // jsonp
-          var script = document.createElement('script');
-          script.type = 'text/javascript';
-         
-          // 传参并指定回调执行函数为onBack
-          script.src = 'http://www.domain2.com:8080/login?user=admin&callback=onBack';
-          document.head.appendChild(script);
-         
-          // 回调执行函数
-          function onBack(res) {
-            alert(JSON.stringify(res));
-          }
-         
-          server.on('request', function(req, res) {
-            var params = qs.parse(req.url.split('?')[1]);
-            var fn = params.callback;
-         
-            // jsonp返回设置
-            res.writeHead(200, { 'Content-Type': 'text/javascript' });
-            res.write(fn + '(' + JSON.stringify(params) + ')');
-         
-            res.end();
-          });
-          优点：
-         
-          它不像XMLHttpRequest 对象实现 Ajax 请求那样受到同源策略的限制
-          兼容性很好，在古老的浏览器也能很好的运行
-          不需要 XMLHttpRequest 或 ActiveX 的支持；并且在请求完毕后可以通过调用 callback 的方式回传结果。
-          缺点：
-         
-          它支持 GET 请求而不支持 POST 等其它类行的 HTTP 请求。
-          它只支持跨域 HTTP 请求这种情况，不能解决不同域的两个页面或 iframe 之间进行数据通信的问题
-         
-          // postMessage iframe.contentWindow.postMessage 以及window.parent.postMessage(data, url)监听 addEventListener('message', (data) => {})
-          // window domain 设置为一致的domain window.parent.data
-          // window hashchange // 监听onhashchange
-          ie, chrome 下的安全机制无法修改 parent.location.hash
-          所以要利用一个中间的代理 iframe
-          // window.name + location 支持2M
-         ```
-
-15560. express/koa实现原理
-
-15561. Es5实现es6的class
-
-15562. [浏览器的事件循环和nodejs事件循环的区别](https://segmentfault.com/a/1190000013660033)
-
-15563. vue的响应式系统、虚拟dom、依赖收集
-
-15564. 用JavaScript的异步实现sleep函数
-
-15565. promise的this指向问题
-
-15566. lru 红黑树（主要是强规则，每次插入都要校验 根节点是否是黑色，叶子节点是否是黑色，以及兄弟节点是否颜色相同，一条路径上是否有相同数量的红色节点，以及父子节点颜色是否不同等规则，但是好处在于查找和删除，新增操作复杂度都是O(log2n)） 双向链表 数组中连续最大和
-
-15567. node 节点生成目录
-
-15568. queen 注册任务 延迟执行 异步互相依赖
-
-15569. node支持1000万qbs
-
-15570. url 库解析url
-
-15571. request 支持错误重试
-
-15572. 写一个缓存支持LRU
-
-15573. 日期求解 工作日
-
-15574. Mongodb 最大连接数
-
-15575. 流 黑洞 筛选数据 transform 流
-
-15576. [题目](https://github.com/jimuyouyou/node-interview-questions)
-
-15577. 求数组里最大连续和
-
-15578. outline实现一个背景 css
-
-15579. 函数记忆， 将函数的执行结果保存，适用于斐波那契求值以及求公约数和阶乘等
-
-         ```javascript
-         // 斐波那契 + 递归
-         var count = 0;
-         
-         console.time('fibonacci')
-         var fibonacci = function(n){
-             count++;
-             return n < 2? n : fibonacci(n-1) + fibonacci(n-2);
-         };
-         fibonacci(40)
-         console.timeEnd('fibonacci')
-         console.log(count)
-         
-         // 102334155
-         // fibonacci: 1459.18896484375ms
-         // 331160281
-         
-         // 使用函数记忆
-         var memoize = function (fn) {
-             var memoize = function () {
-                 var cache = memoize.cache
-                 var key = JSON.stringify(Array.prototype.slice.call(arguments))
-                 if (cache[key]) return cache[key]
-                 return cache[key] = fn.apply(this, arguments)
+            ```javascript
+             // Server Proxy 调用本后端服务的请求进行转发
+             // cors 后端设置Access-Control-Allow-Origin
+             使用简单方便，更为安全
+             支持 POST 请求方式
+             CORS 是一种新型的跨域问题的解决方案，存在兼容问题，仅支持 IE 10 以上
+            
+             // jsonp
+             var script = document.createElement('script');
+             script.type = 'text/javascript';
+            
+             // 传参并指定回调执行函数为onBack
+             script.src = 'http://www.domain2.com:8080/login?user=admin&callback=onBack';
+             document.head.appendChild(script);
+            
+             // 回调执行函数
+             function onBack(res) {
+               alert(JSON.stringify(res));
              }
-             memoize.cache = {}
-             return memoize
-         }
-         
-         // 斐波那契 + 函数记忆
-         var count = 0;
-         
-         console.time('fibonacci')
-         var fibonacci = function(n){
-             count++;
-             return n < 2? n : fibonacci(n-1) + fibonacci(n-2);
-         };
-         fibonacci = memoize(fibonacci)
-         console.log(fibonacci(40))
-         console.timeEnd('fibonacci')
-         console.log(count)
-         // 102334155
-         // fibonacci: 0.68603515625ms
-         // 41
-         
-         // 斐波那契 + 递归
-         var count = 0;
-         console.time('fibonacci')
-         function fibonacci(n) {
-           count++;
-           let memory = new Array(n+1);
-           memory[0] = 1;
-           memory[1] = 1;
-           for(let i = 2; i <= n; i++) {
-             memory[i] = memory[i-1] + memory[i-2];  
-           }
-           return memory[n];
-         }
-         console.log(fibonacci(40))
-         console.timeEnd('fibonacci')
-         console.log(count)
-         
-         // 102334155
-         // fibonacci: 0.445068359375ms
-         // 1
-         ```
+            
+             server.on('request', function(req, res) {
+               var params = qs.parse(req.url.split('?')[1]);
+               var fn = params.callback;
+            
+               // jsonp返回设置
+               res.writeHead(200, { 'Content-Type': 'text/javascript' });
+               res.write(fn + '(' + JSON.stringify(params) + ')');
+            
+               res.end();
+             });
+             优点：
+            
+             它不像XMLHttpRequest 对象实现 Ajax 请求那样受到同源策略的限制
+             兼容性很好，在古老的浏览器也能很好的运行
+             不需要 XMLHttpRequest 或 ActiveX 的支持；并且在请求完毕后可以通过调用 callback 的方式回传结果。
+             缺点：
+            
+             它支持 GET 请求而不支持 POST 等其它类行的 HTTP 请求。
+             它只支持跨域 HTTP 请求这种情况，不能解决不同域的两个页面或 iframe 之间进行数据通信的问题
+            
+             // postMessage iframe.contentWindow.postMessage 以及window.parent.postMessage(data, url)监听 addEventListener('message', (data) => {})
+             // window domain 设置为一致的domain window.parent.data
+             // window hashchange // 监听onhashchange
+             ie, chrome 下的安全机制无法修改 parent.location.hash
+             所以要利用一个中间的代理 iframe
+             // window.name + location 支持2M
+            ```
 
-15580. Nodejs 如何扛住亿级流量 <https://www.infoq.cn/article/58WHhVew7kUYwHS*L6sE> <https://imweb.io/topic/5b6cf97093759a0e51c917c8>
+20. express/koa实现原理
 
-15581. 性能优化，如用最新的node版本修复的bug 以及json.stringify c++扩展，看火焰图 把耗时和cpu的操作优化，以及如何定位eventloop的耗时等等
+21. Es5实现es6的class
 
-15582. Redis，memcached，mysql等 以及区别
+22. [浏览器的事件循环和nodejs事件循环的区别](https://segmentfault.com/a/1190000013660033)
 
-15583. 秒杀 <https://segmentfault.com/a/1190000007264809> <https://segmentfault.com/a/1190000008888926> 
+23. vue的响应式系统、虚拟dom、依赖收集
 
-         <http://developer.51cto.com/art/201811/586475.htm>
+24. 用JavaScript的异步实现sleep函数
 
-15584. v8 GC <https://v8.js.cn/blog/trash-talk/> <https://yq.aliyun.com/articles/592880?spm=a2c4e.11153940.blogcont592878.29.217cdcdeeXAjsR>
+25. promise的this指向问题
 
-15585. 树的遍历
+26. lru 红黑树（主要是强规则，每次插入都要校验 根节点是否是黑色，叶子节点是否是黑色，以及兄弟节点是否颜色相同，一条路径上是否有相同数量的红色节点，以及父子节点颜色是否不同等规则，但是好处在于查找和删除，新增操作复杂度都是O(log2n)） 双向链表 数组中连续最大和
 
-15586. nodejs频繁gc导致拖慢响应时间å
+27. node 节点生成目录
 
-15587. Proxy 相比于 defineProperty 的优势 以及decorator
+28. queen 注册任务 延迟执行 异步互相依赖
 
-15588. [koa-bodyparser原理](https://www.imooc.com/article/274059?block_id=tuijian_wz) [koa-router原理](https://www.imooc.com/article/274032)
+29. node支持1000万qbs
 
-15589. 表单可以跨域的原因是因为 浏览器只阻止你发请求，并不阻止你收请求，form表单 提交就已经跳转了
+30. url 库解析url
 
-15590. 介绍中介者模式（<https://segmentfault.com/a/1190000004347524>）最终会维护一个巨大的对象
+31. request 支持错误重试
 
-15591. 观察者和订阅-发布的区别，各自用在哪里（<https://juejin.im/post/5a14e9edf265da4312808d86>）
+32. 写一个缓存支持LRU
+
+33. 日期求解 工作日
+
+34. Mongodb 最大连接数
+
+35. 流 黑洞 筛选数据 transform 流
+
+36. [题目](https://github.com/jimuyouyou/node-interview-questions)
+
+37. 求数组里最大连续和
+
+38. outline实现一个背景 css
+
+39. 函数记忆， 将函数的执行结果保存，适用于斐波那契求值以及求公约数和阶乘等
+
+            ```javascript
+            // 斐波那契 + 递归
+            var count = 0;
+            
+            console.time('fibonacci')
+            var fibonacci = function(n){
+                count++;
+                return n < 2? n : fibonacci(n-1) + fibonacci(n-2);
+            };
+            fibonacci(40)
+            console.timeEnd('fibonacci')
+            console.log(count)
+            
+            // 102334155
+            // fibonacci: 1459.18896484375ms
+            // 331160281
+            
+            // 使用函数记忆
+            var memoize = function (fn) {
+                var memoize = function () {
+                    var cache = memoize.cache
+                    var key = JSON.stringify(Array.prototype.slice.call(arguments))
+                    if (cache[key]) return cache[key]
+                    return cache[key] = fn.apply(this, arguments)
+                }
+                memoize.cache = {}
+                return memoize
+            }
+            
+            // 斐波那契 + 函数记忆
+            var count = 0;
+            
+            console.time('fibonacci')
+            var fibonacci = function(n){
+                count++;
+                return n < 2? n : fibonacci(n-1) + fibonacci(n-2);
+            };
+            fibonacci = memoize(fibonacci)
+            console.log(fibonacci(40))
+            console.timeEnd('fibonacci')
+            console.log(count)
+            // 102334155
+            // fibonacci: 0.68603515625ms
+            // 41
+            
+            // 斐波那契 + 递归
+            var count = 0;
+            console.time('fibonacci')
+            function fibonacci(n) {
+              count++;
+              let memory = new Array(n+1);
+              memory[0] = 1;
+              memory[1] = 1;
+              for(let i = 2; i <= n; i++) {
+                memory[i] = memory[i-1] + memory[i-2];  
+              }
+              return memory[n];
+            }
+            console.log(fibonacci(40))
+            console.timeEnd('fibonacci')
+            console.log(count)
+            
+            // 102334155
+            // fibonacci: 0.445068359375ms
+            // 1
+            ```
+
+40. Nodejs 如何扛住亿级流量 <https://www.infoq.cn/article/58WHhVew7kUYwHS*L6sE> <https://imweb.io/topic/5b6cf97093759a0e51c917c8>
+
+       ```markdown
+       1.保证核心业务，降级其他业务(比如某些无关紧要的业务可以暂时不可用，查看历史记录等可以只给看100条)
+       2.如果对实时性要求不高，在底层服务出错，导致响应时间过长而造成的雪崩效应，上层并发增高的情况，可以通过mc进行2级缓存，在服务出问题时，返回24小时内的缓存数据，而不造成页面崩溃
+       3.客户端的页面尽量请求静态资源走CDN，不导致其余接口的并发也增高
+       4.对底层服务做保护，在接入层对qps统计，超过某个qps阈值直接拒绝，对于中等量的qps进行令牌算法保护，不断的以恒定速率往桶中放令牌，捅满了就不加了，当服务来时取走令牌去请求服务，如果没有token可拿直接拒绝，可适当提高速率，可控
+       5.压缩算法，对资源zlib压缩
+       6.如果是突发的并发，比如秒杀 可以采用服务独立部署，原有业务部署在不同服务器，防止高并发拖垮整个网站
+       7. 
+       
+       ```
+
+
+  ​     
+
+41. 性能优化，如用最新的node版本修复的promise bug 以及json.stringify c++扩展，看火焰图 把耗时和cpu的操作优化，以及如何定位eventloop的耗时等等
+
+42. Redis，memcached，mysql等 以及区别
+
+43. 秒杀 <https://segmentfault.com/a/1190000007264809> <https://segmentfault.com/a/1190000008888926> 
+
+            <http://developer.51cto.com/art/201811/586475.htm>
+            核心 将请求尽量拦截在系统上游 并充分利用缓存 典型的读多写少 都是查询库存，写比例只有0.1%，读比例占99.9%，非常适合使用缓存。
+
+44. v8 GC <https://v8.js.cn/blog/trash-talk/> <https://yq.aliyun.com/articles/592880?spm=a2c4e.11153940.blogcont592878.29.217cdcdeeXAjsR>
+
+45. 树的遍历
+
+46. nodejs频繁gc导致拖慢响应时间
+
+47. Proxy 相比于 defineProperty 的优势 以及decorator
+
+48. [koa-bodyparser原理](https://www.imooc.com/article/274059?block_id=tuijian_wz) [koa-router原理](https://www.imooc.com/article/274032)
+
+49. 表单可以跨域的原因是因为 浏览器只阻止你发请求，并不阻止你收请求，form表单 提交就已经跳转了
+
+50. 介绍中介者模式（<https://segmentfault.com/a/1190000004347524>）最终会维护一个巨大的对象
+
+51. 观察者和订阅-发布的区别，各自用在哪里（<https://juejin.im/post/5a14e9edf265da4312808d86>）
+
+52. 实现一个ajax请求
+
+53. 算法
+
+       ```javascript
+       // 两个整数的交换 https://juejin.im/post/5a7aaf745188257a5a4c9a39
+       // https://zhuanlan.zhihu.com/p/25308541
+       let a = 2,
+           b = 3;
+           [b,a] = [a,b]
+           console.log(a,b)   // 3 2
+       
+       ```
+
+[[es5实现es6中两种新增的数据结构Map和Set](https://github.com/blackLearning/blackLearning.github.io/issues/11#)]
+

@@ -5,7 +5,9 @@
 如果是个异步函数，则放入对应的microtask/macrotask队列 按照先进先出的顺序执行
 
 浏览器与nodejs事件循环的区别
+
 示例代码
+```javascript
 setTimeout(()=>{
     console.log('timer1')
 
@@ -27,6 +29,8 @@ setTimeout(()=>{
         console.log('promise2')
     })
 })
+```
+
 浏览器输出：
 time1
 promise1
@@ -46,6 +50,7 @@ Nodejs中事件循环
 
 示例代码分析
 MicroTask队列与MacroTask队列
+```javascript
 setTimeout(function () {
    console.log(1);
 });
@@ -63,7 +68,8 @@ setImmediate(function () {
    console.log(6)
 })
 console.log('end');
-2 4 end 3 5 1 6  其中Timer优于Check阶段，所以先1后6。
+
+// 2 4 end 3 5 1 6  其中Timer优于Check阶段，所以先1后6。
 
 
 // 示例代码之从await引发的node 10到 node 11的性能提升
@@ -94,6 +100,7 @@ new Promise(resolve => {
   })
 
 console.log('script end')
+```
 在早些版本时, `await`会为后面的函数自动包裹一个`promise` 这样导致  `await async2()`实际上是 `await Promise.resolve(async2()).then(...)` 而`async2`是一个`promise`的时候 `then`函数会立刻执行，导致会先输出`async1 end`，不符合规范，这是一个`bug` 却意外的帮助减少了一个`promise` 2个`microtask`的消耗，在之前需要`creatPromise` 以及`resolvePromise` 修复之后改为只需要直接`promiseResolve`即可，当`async2`为一个`promise`的时候直接返回`Promise`
 
 即 之前是 

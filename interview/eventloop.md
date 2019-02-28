@@ -94,10 +94,14 @@ new Promise(resolve => {
   })
 
 console.log('script end')
-在早些版本时, await会为后面的函数自动包裹一个promise 这样导致  await async2()实际上是 new Promise((resolve, reject) => {resolve(async2)})得等待这个promise完成后才执行之后的代码，这样就会导致asyn1 end推迟到了下一个阶段
-如 
-new Promise((resolve, reject) => {resolve(async2())})
+在早些版本时, `await`会为后面的函数自动包裹一个`promise` 这样导致  `await async2()`实际上是 `await Promise.resolve(async2()).then(...)` 而`async2`是一个`promise`的时候 `then`函数会立刻执行，导致会先输出`async1 end`，不符合规范，这是一个`bug` 却意外的帮助减少了一个`promise` 2个`microtask`的消耗，在之前需要`creatPromise` 以及`resolvePromise` 修复之后改为只需要直接`promiseResolve`即可，当`async2`为一个`promise`的时候直接返回`Promise`
 
-在执行完console.log('promise')之后的resolve 我们的async2，此时为promise1 和promise2后 也需要resolve才会 resolve最后包裹的promise
-而在node11中修复了这个创建3次promise消耗的问题，更加趋向于浏览器行为
-只要async2是个promise那么直接包裹，这样async2 resolve后就代表await这个行为resolve了这样立即输出async1 end，而且之前需要等待所有Promise 都resolve
+即 之前是 
+```javascript
+new Promise((resolve, reject) => {
+  resolve(async2())
+})
+```
+而现在是`promiseResolve(async) `
+`promiseResolve` 中判断了如果async是promise则直接返回
+等同于 `async().then(...)`

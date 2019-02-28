@@ -1,6 +1,6 @@
 **前端性能优化**
 1. 使用最新版的Node
-  eg: 1. node8 -> node 10 await 从三个promise的开销 改为只需一个promise并且将事件循环的表现与浏览器更加趋同
+  eg: 1. node8 -> node 10 await 从3个microtask的开销 改为只需一个microtask并且将事件循环的表现与浏览器更加趋同
   2. node 10 -> node 11 解决先执行完所有timers，再执行microtask的问题
   3. 优化了Array, 在早些版本，比如一个[1,2,3]这样的数组，v8只会表示这是一个充满Number的数组，但是在引擎方面，他需要更精确的类型，来针对不同的数值进行优化
   holey 和 PACKED 种类
